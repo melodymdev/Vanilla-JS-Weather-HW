@@ -48,6 +48,11 @@ a {
     margin-right: 10px;
 }
 
+.weather-temperature .active {
+    color: #f77d3a;
+    cursor: default;
+}
+
 #temperature {
     font-size: 64px;
     line-height: 1;
