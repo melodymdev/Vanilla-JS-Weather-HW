@@ -1,7 +1,9 @@
-//recieves the dt number from api, calculates the date, returns current dt.
+//recieves the dt number from api, calculates the date, returns current dt. takes dt in milliseconds and plugs it into parameter timestamp.
 function formatDate(timestamp) {
+    //constructs a date object by passing in the dt from the api for the current city in milliseconds 
     let date = new Date(timestamp)
     let hours = date.getHours()
+    //adds a 0 in front of the time if it is a number smaller than 10
     if (hours < 10) {
         hours = `0${hours}`
     }
@@ -32,7 +34,7 @@ function displayWeatherData(response) {
     descriptionElement.innerHTML = response.data.weather[0].description
     humidityElement.innerHTML = response.data.main.humidity
     windElement.innerHTML = Math.round(response.data.wind.speed)
-    //need to convert the number of milliseconds since 1970. Take dt (date time) in api and multiply by 1000 to get milliseconds. 
+    //need to convert the number of seconds since 1970. Take dt (date time) in api and multiply by 1000 to get milliseconds. 
     dateElement.innerHTML = formatDate(response.data.dt * 1000)
     //takes the element specified and replaces it with another attribute
     iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`)
