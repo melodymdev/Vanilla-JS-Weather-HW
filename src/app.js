@@ -10,6 +10,7 @@ function formatDate(timestamp) {
         minutes = `0${minutes}`
     }
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    //searches the variable of days for whatever index number the current date is and replaces it with the cooresponding string day of the week. 
     let day = days[date.getDay()]
     return `${day} ${hours}:${minutes}`
 
@@ -24,6 +25,7 @@ function displayWeatherData(response) {
     let humidityElement = document.querySelector("#humidity")
     let windElement = document.querySelector("#wind")
     let dateElement = document.querySelector("#date")
+    let iconElement = document.querySelector("#icon")
     //takes that variable that is located in the html and replaces it with the object specified that is located in the apiUrl
     temperatureElement.innerHTML = Math.round(response.data.main.temp)
     cityElement.innerHTML = response.data.name
@@ -32,7 +34,10 @@ function displayWeatherData(response) {
     windElement.innerHTML = Math.round(response.data.wind.speed)
     //need to convert the number of milliseconds since 1970. Take dt (date time) in api and multiply by 1000 to get milliseconds. 
     dateElement.innerHTML = formatDate(response.data.dt * 1000)
+    //takes the element specified and replaces it with another attribute
+    iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`)
     console.log(response)
+    iconElement.setAttribute("alt", response.data.weather[0].description)
 }
 
 let city = "San Francisco"

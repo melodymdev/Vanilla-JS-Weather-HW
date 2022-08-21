@@ -26,6 +26,14 @@ a {
     text-decoration: none;
 }
 
+.main-temp {
+    margin-top: 15px;
+}
+
+.hum-wind {
+    margin-top: 15px;
+}
+
 .overview {
     margin-bottom: 20px;
 }
