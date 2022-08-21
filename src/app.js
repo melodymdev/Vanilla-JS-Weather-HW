@@ -42,8 +42,23 @@ function displayWeatherData(response) {
     iconElement.setAttribute("alt", response.data.weather[0].description)
 }
 
-let city = "San Francisco"
+//makes an ajax call and displays the city
+function search(city) {
 let apiKey ="5f472b7acba333cd8a035ea85a0d4d4c"
 let apiUrl =`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`
-
 axios.get(apiUrl).then(displayWeatherData)
+}
+
+//The event argument is used to pass information about the event that has happened (the form submit in this case), which can be used to retrieve data about the event or manipulate it.
+function handleSubmit(event) {
+    //prevents page from reloading
+    event.preventDefault()
+    let cityInputElement = document.querySelector("#city-input")
+    search(cityInputElement.value)
+}
+
+//calls the search function and inputs into city parameter 
+search("San Francisco")
+
+let form = document.querySelector("#search-form")
+form.addEventListener("submit", handleSubmit)
