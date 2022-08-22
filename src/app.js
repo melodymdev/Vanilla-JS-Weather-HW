@@ -18,6 +18,38 @@ function formatDate(timestamp) {
 
 }
 
+//takes the id of forecast and injects the code displayed below into the innerHTML
+function displayForecast() {
+    let forecastElement = document.querySelector("#forecast")
+    //starts off as a row because you want everything inside to be a grid in order to inject multiple columns.
+    let forecastHTML = `<div class="row">`
+    let days = ["Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    //Loops through each day of the above array (Tue, Wed, Thu) ↑ and puts each of them inside the below variable of day ↓ where it then runs the forecastHTML code. Ex: Tue - runs forecastHTML once, then Wed runs the code again, Thu one more time and so on depending how many values in the array are available to loop through.
+    days.forEach(function (day) {
+    //forecastHTML variable is equal to itself plus everything input below added to the end of <div class=row>
+        forecastHTML =
+        forecastHTML +
+        `         
+            <div class="col-2">
+                <div class="weather-forecast-day">${day}</div>
+                <img
+                    src="http://openweathermap.org/img/wn/02d@2x.png"
+                    alt="weather icon"
+                    width="36"
+                />
+                <div class="weather-forecast-temp">
+                    <span class="weather-forecast-max"> 18° </span>
+                    <span class="weather-forecast-min"> 12° </span>
+                </div>
+            </div>
+        `
+    })
+    
+    //closes the row 
+    forecastHTML = forecastHTML + `</div>`
+    forecastElement.innerHTML = forecastHTML
+}
+
 
 //function that you want to call when you get the response back from the api
 function displayWeatherData(response) {
@@ -94,6 +126,7 @@ function displayFahrTemp(event) {
 //variable is being created with nothing in it, then search is called which plugs in response.data.main.temp and allows it to be accessed in other functions
 let fahrTemp = null
 
+
 let form = document.querySelector("#search-form")
 form.addEventListener("submit", handleSubmit)
 
@@ -105,3 +138,6 @@ fahrLink.addEventListener("click", displayFahrTemp)
 
 //calls the search function and inputs into city parameter 
 search("San Francisco")
+
+//calls the displayForecast function
+displayForecast()
