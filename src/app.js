@@ -19,7 +19,8 @@ function formatDate(timestamp) {
 }
 
 //takes the id of forecast and injects the code displayed below into the innerHTML
-function displayForecast() {
+function displayForecast(response) {
+    console.log(response.data.daily)
     let forecastElement = document.querySelector("#forecast")
     //starts off as a row because you want everything inside to be a grid in order to inject multiple columns.
     let forecastHTML = `<div class="row">`
@@ -51,6 +52,12 @@ function displayForecast() {
 }
 
 
+function getForecast(coordinates) {
+  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast)
+}
+
 //function that you want to call when you get the response back from the api
 function displayWeatherData(response) {
     //selects the element with the id indicated and puts it into a variable 
@@ -74,8 +81,10 @@ function displayWeatherData(response) {
     dateElement.innerHTML = formatDate(response.data.dt * 1000)
     //takes the element specified and replaces it with another attribute
     iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`)
-    console.log(response)
     iconElement.setAttribute("alt", response.data.weather[0].description)
+
+    //sends coordinates to getForecast function
+    getForecast(response.data.coord)
 }
 
 
@@ -138,6 +147,3 @@ fahrLink.addEventListener("click", displayFahrTemp)
 
 //calls the search function and inputs into city parameter 
 search("San Francisco")
-
-//calls the displayForecast function
-displayForecast()
