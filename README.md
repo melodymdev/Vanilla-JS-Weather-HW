@@ -11,7 +11,7 @@ Clone the project
   git clone https://github.com/melodymdev/Vanilla-JS-Weather-HW.git
 ```
 
-Open index.html
+Open index.html in a browser
 
 
 ## Acknowledgements
